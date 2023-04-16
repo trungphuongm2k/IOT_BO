@@ -1,0 +1,116 @@
+@import 'antd/dist/reset.css';
+@import url('https://fonts.googleapis.com/css2?family=Kanit:wght@900&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Exo+2:wght@300;700;900&family=Kanit:wght@900&display=swap');
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+html,
+body {
+    padding: 0;
+    margin: 0;
+    font-family: -apple-system, BlinkMacSystemFont, Segoe UI, Roboto, Oxygen, Ubuntu, Cantarell,
+        Fira Sans, Droid Sans, Helvetica Neue, sans-serif;
+    /* background-image: linear-gradient(62deg, #cae4ffd1 0%, #e7cefecc 100%);
+     */
+    background-color: #ffffff;
+    background-image: linear-gradient(45deg, #fa8bff 0%, #2bd2ff 55%, #2bff88 100%);
+}
+
+a {
+    color: inherit;
+    text-decoration: none;
+}
+
+* {
+    box-sizing: border-box;
+}
+.input-color {
+    border: none;
+    cursor: pointer;
+    height: 40px;
+    width: 40px;
+    border-radius: 10%;
+    overflow: hidden;
+}
+
+.container-page {
+    display: flex;
+    width: 100%;
+}
+.body {
+    flex: 1;
+    overflow: hidden;
+    height: 100vh;
+}
+.body-content {
+    overflow-y: auto;
+    overflow-x: hidden;
+    height: calc(100vh - 80px) !important;
+}
+.ql-editor {
+    height: 500px !important;
+    overflow: hidden;
+    overflow-y: scroll;
+}
+
+/* custom scrollbar */
+
+::-webkit-scrollbar {
+    width: 8px;
+    height: 8px;
+    background-color: #fff;
+}
+
+::-webkit-scrollbar-track {
+    background-color: transparent;
+}
+
+::-webkit-scrollbar-thumb {
+    background-color: #f90;
+    border-radius: 15px;
+    background-image: -webkit-linear-gradient(
+        45deg,
+        rgba(255, 255, 255, 0.2) 25%,
+        transparent 25%,
+        transparent 50%,
+        rgba(255, 255, 255, 0.2) 50%,
+        rgba(255, 255, 255, 0.2) 75%,
+        transparent 75%,
+        transparent
+    );
+}
+
+.scrollbox {
+    width: 10em;
+    height: 10em;
+    overflow: auto;
+    visibility: hidden;
+}
+
+.scrollbox-content,
+.scrollbox:hover,
+.scrollbox:focus {
+    visibility: visible;
+}
+
+/* custom upload antd */
+.ant-upload-list-item {
+    height: 118px !important;
+}
+.ant-upload-list-item .ant-upload-span {
+    height: 100%;
+}
+
+.ant-upload-list-item .ant-upload-span * {
+    color: #000000;
+}
+.ant-upload-list-item .ant-upload-span a {
+    width: 100px;
+    height: 100px;
+}
+.ant-upload-list-item .ant-upload-span a img {
+    width: 100px;
+    height: 100px;
+    object-fit: cover !important;
+}

@@ -1,0 +1,211 @@
+$LIGHTING_FLOOR: 1;
+$LIGHTING_CEIL: 2;
+$LIGHTING_FLAT: 3;
+
+@mixin text3d(
+    $primary,
+    $depth: 5,
+    $shadowsteps: 5,
+    $shadowincrementer: 3px,
+    $shadowopacity: 1,
+    $primaryshadowcolour: #fff4f0,
+    $lighting: $LIGHTING_CEIL
+) {
+    $predefinedShadows: (
+        0 0 5px rgba($primaryshadowcolour, 0.05),
+        0 -1px 3px rgba($primaryshadowcolour, 0.1),
+        0 3px 5px rgba($primaryshadowcolour, 0.1)
+    );
+    $value: ();
+    @for $i from 1 through $depth {
+        $num: $i + px;
+        $hueadjust: $i;
+        @if ($lighting == $LIGHTING_FLOOR) {
+            $hueadjust: ($i * 2 - $depth - 5) * 0.2%;
+        }
+        @elseif ($lighting == $LIGHTING_CEIL) {
+            $hueadjust: -($i * 2 + $depth - 10) * 0.2%;
+        }
+        @elseif ($lighting == $LIGHTING_FLAT) {
+            $hueadjust: -$depth * 0.2%;
+        }
+        $colour: adjust-color($primary, $lightness: $hueadjust);
+        $theShadow: 0 $num 0 $colour;
+        $value: append($value, $theShadow, comma);
+    }
+
+    @for $i from 1 through $shadowsteps {
+        @if ($i >= length($predefinedShadows)) {
+            $dist: $i * $shadowincrementer;
+            $value: append($value, 0 $dist $dist rgba($primaryshadowcolour, $shadowopacity));
+        } @else {
+            $value: append($value, nth($predefinedShadows, $i));
+        }
+    }
+
+    text-shadow: $value;
+}
+
+@keyframes Blazing {
+    0% {
+        text-shadow: 0 3px 20px red, 0 0 20px red, 0 0 10px orange, 0 0 0 yellow, 0 0 5px yellow,
+            -2px -5px 5px yellow, 4px -10px 10px yellow;
+    }
+    25% {
+        text-shadow: 0 3px 25px red, 0 0 25px red, 0 0 15px orange, 0 0 5px yellow,
+            -2px -5px 5px yellow, 3px -10px 10px yellow, -4px -15px 40px yellow;
+    }
+    50% {
+        text-shadow: 0 3px 20px red, 0 0 30px red, 0 -5px 10px orange, -2px -5px 5px yellow,
+            3px -10px 10px yellow, -4px -15px 40px yellow, 2px -40px 30px rgba(255, 255, 0, 0.5);
+    }
+    75% {
+        text-shadow: 0 3px 30px red, 0 0 30px red, 0 -5px 10px orange, 3px -5px 5px yellow,
+            -4px -10px 10px yellow, 2px -30px 30px rgba(255, 255, 0, 0.5),
+            0px -25px 40px rgba(255, 255, 0, 0);
+    }
+    100% {
+        text-shadow: 0 3px 40px red, 0 0 40px red, 0 0 10px orange, 0 0 0 yellow, 0 0 5px yellow,
+            -2px -5px 5px yellow, 4px -10px 10px yellow;
+    }
+}
+
+$primarycolour: rgb(255, 61, 2);
+
+.login {
+    width: 100%;
+    height: 100vh;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    user-select: none;
+    .container {
+        max-width: 700px;
+        width: 100%;
+        min-height: 280px;
+        height: fit-content;
+        background-color: #ffffff;
+        border-radius: 10px;
+        box-shadow: rgba(0, 0, 0, 0.24) 0px 3px 8px;
+        padding: 20px;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        flex-wrap: wrap;
+        .contact {
+            min-width: 250px;
+            width: fit-content;
+            display: flex;
+            justify-content: center;
+            flex-direction: column;
+            align-items: center;
+            .logo {
+                width: 180px;
+                height: 180px;
+                border-radius: 50%;
+                display: flex;
+                justify-content: center;
+                align-items: center;
+                flex-direction: column;
+                margin: 10px;
+                > img {
+                    width: 90%;
+                }
+            }
+        }
+    }
+    .main {
+        width: fit-content;
+        min-width: 350px;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        flex-direction: column;
+        > h1 {
+            color: rgb(255, 223, 197);
+            font-family: 'Kanit';
+            font-size: 50px;
+            line-height: 1em;
+            margin: 0;
+            -webkit-text-stroke-width: 0.5px;
+            -webkit-text-stroke-color: rgba(147, 0, 0, 0.614);
+            text-shadow: 0 3px 40px red, 0 0 40px red, 0 0 10px orange, 4px -5px 6px yellow,
+                -4px -10px 10px yellow, 0 -10px 30px yellow;
+            filter: drop-shadow(0 0 0.1rem crimson);
+            animation: 1.5s Blazing infinite alternate linear;
+        }
+        button {
+            margin-top: 30px;
+            width: 300px;
+            border: none;
+            height: 50px;
+            cursor: pointer;
+            overflow: hidden;
+            display: flex;
+            padding: 0;
+            border-radius: 10px;
+            // box-shadow: 0 4px 4px #350000aa;
+            outline: none;
+            animation: zoominout 1s infinite ease-in;
+            transition: 0.2s;
+            text-transform: uppercase;
+            .icon {
+                width: 50px;
+                background-color: #e81f1f;
+                height: 100%;
+                display: flex;
+                justify-content: center;
+                align-items: center;
+                box-shadow: rgba(207, 90, 90, 0.24) 0px 3px 8px;
+                transition: 0.5s;
+                svg {
+                    color: #ffffff;
+                    font-size: 1.5rem;
+                }
+            }
+            .title {
+                height: 100%;
+                flex: 1;
+                display: flex;
+                justify-content: center;
+                align-items: center;
+                background-image: linear-gradient(to right, #ff2d03 0%, #f09819 51%, #ff2d03 100%);
+                background-size: 200% auto;
+                transition: 0.5s;
+                span {
+                    font-size: 1rem;
+                    font-weight: 600;
+                    color: #ffffff;
+                }
+            }
+            &:hover {
+                .icon {
+                    box-shadow: rgba(0, 0, 0, 0.24) 0px 3px 8px;
+                }
+                .title {
+                    background-position: right center;
+                    color: #fff;
+                    text-decoration: none;
+                    box-shadow: rgba(0, 0, 0, 0.24) 0px 3px 8px;
+                }
+            }
+            &:active {
+                box-shadow: none;
+                transform: translateY(1px);
+                animation: none;
+            }
+        }
+    }
+}
+
+@keyframes zoominout {
+    0% {
+        transform: scale(1);
+    }
+    50% {
+        transform: scale(1.02);
+    }
+    100% {
+        transform: scale(1);
+    }
+}

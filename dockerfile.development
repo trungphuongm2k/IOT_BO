@@ -1,0 +1,17 @@
+FROM node:16.15.0-bullseye-slim
+
+WORKDIR /usr/src/app
+
+COPY . .
+
+RUN npm install
+
+ENV HOST_NAME_API=https://dev-new-api.yteco.live
+
+ENV HOST_NAME_REDIRECT=https://dev-new-bo.yteco.live
+
+RUN npm run build
+
+EXPOSE 3000
+
+CMD ["npm", "start"]

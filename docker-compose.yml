@@ -1,0 +1,11 @@
+version: '3'
+services:
+    frontend:
+        container_name: frontend
+        image: botest:latest
+        ports:
+            - '3001:3000'
+        environment:
+            # DB Config
+            - HOST_NAME_API=https://dev-new-api.yteco.live
+            - HOST_NAME_REDIRECT=https://dev-new-bo.yteco.live
